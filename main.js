@@ -1,52 +1,61 @@
 // Your code below.
 
-const makeDino = function (name, period, carnivore, extinct) {
-  const newDino = {
-    species: name,
-    period: period,
-    carnivore: carnivore,
-    extinct: extinct,
+const makeDino = function (newSpecies, newPeriod, newCarnivore, newExtinct = false) {
+  return {
+    species: newSpecies,
+    period: newPeriod,
+    carnivore: newCarnivore,
+    extinct: newExtinct
   }
-  if (extinct === undefined) {
-    newDino.extinct = false
-  }
-  return newDino
 }
+// Default Parameter --> newExtinct = false 
+// if new extinct is undefined then give it my own value
+// (newExtinct = undefined)
+// newExtinct = false;
+// newSpecies = 'T-Rex' don't forget quotation marks if giving value in array.
+// order of parameter does matter
 
 const makeExtinct = function (dino1) {
-  const deadDino = makeDino(dino1.species, dino1.period, dino1.carnivore, dino1.extinct);
-  deadDino.extinct = true;
+  return makeDino(dino1.species, dino1.period, dino1.carnivore, true);
+}
+// or 
+const makeExtinctAlt = function (dinosaur) {
+  const newDino = makeDino(dinosaur.species, dinosaur.period, dinosaur.carnivore, dinosaur.extinct)
 
-  return deadDino;
+  newDino.extinct = true;
+
+  return newDino;
 }
 
-const truncateSpecies = function (name, period, carnivore, extinct) {
-  const shortNameDino = {
-    species:name,
-    period: period,
-    carnivore: carnivore,
-    extinct: extinct,
+// I want a new dinosaur with all parameters passed in with extinct set to true.
+// or 
+// Make exact copy and return a new dinosaur set to .extinct true
+
+const truncateSpecies = function (dinosaur) {
+  const newDino = makeDino(dinosaur.species, dinosaur.period, dinosaur.carnivore, dinosaur.extinct);
+
+  if (newDino.species.length >= 10) {
+    newDino.species = newDino.species.slice(0, 7) + '...';
   }
-  return shortNameDino   
+  return newDino;
 }
 
-/* So not sure how this truncate works.  I know we can .slice but not sure how to use that in 
-in a function.  Would I use an if statement, would I add another function.  This is where I get 
-stuck when you ask me to extract something, return something less, ugh feeling defeated yet again.
-Sorry this is far as I could get even with reading online articles.
-*/
+// Makes copy of it 
+// Than says if length of this species is greater than > or = equal to 10 >=
+// Let it be a slice of that sting 0 - 6 indexes 
+// With '...' at end
 
-const makeSingular = function (name, period, carnivore, extinct) {
-  const noUsInName = {
-    species:name,
-    period: period,
-    carnivore: carnivore, 
-    extinct: extinct,
+const makeSingular = function (dinosaur) {
+  if (dinosaur.species.endsWith('us')) {
+    return makeDino(dinosaur.species.slice(0, -2), dinosaur.period, dinosaur.carnivore, dinosaur.extinct)
+  } else {
+    return makeDino(dinosaur.species, dinosaur.period, dinosaur.carnivore, dinosaur.extinct)
   }
-  return noUsInName
 }
 
-//  Best I can do is give you a non-mutated object. 
+// if character ends with ('us')
+// .slice(0, -2) is everything but the last 2
+
 
 // Our code below; DO NOT TOUCH!
 if (typeof makeDino === 'undefined') {
